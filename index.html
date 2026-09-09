@@ -12,39 +12,41 @@
     
     <link rel="icon" href="logooficialsazam.png" type="image/png">
 
+    <!-- Fonts: Inter, Space Grotesk, JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* ==========================================================================
-           1. VARIÁVEIS CSS (Paleta e Espaçamentos Premium)
+           1. VARIÁVEIS CSS E TEMA GOOGLE LABS / TECH URBAN
            ========================================================================== */
         :root {
-            --bg-white: #ffffff;
-            --bg-light: #fafbfc;
-            --bg-gray: #f3f4f6;
+            --bg-body: #fbfcfd;
+            --bg-card: #ffffff;
+            --bg-subtle: #f3f5f8;
+            --bg-dark: #0a0d12;
             
-            --text-dark: #0f172a;
+            --border-color: #e2e8f0;
+            --border-strong: #cbd5e1;
+
+            --text-main: #0f172a;
             --text-muted: #475569;
-            
-            --primary-blue: #0f62fe;
-            --primary-blue-hover: #0353e9;
-            --accent-purple: #8a3ffc;
-            
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
-            --shadow-hover: 0 20px 25px -5px rgba(15, 98, 254, 0.1), 0 10px 10px -5px rgba(15, 98, 254, 0.04);
-            
-            --radius-md: 16px;
-            --radius-lg: 24px;
-            
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --text-light: #94a3b8;
+            --text-inverse: #f8fafc;
+
+            --accent-blue: #0052ff;
+            --accent-cyan: #00d2ff;
+
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --grid-line-color: rgba(15, 23, 42, 0.06);
+            --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* ==========================================================================
-           2. RESET & BASE
-           ========================================================================== */
         * {
             margin: 0;
             padding: 0;
@@ -53,967 +55,955 @@
 
         html {
             scroll-behavior: smooth;
+            background-color: var(--bg-body);
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-dark);
-            background-color: var(--bg-white);
-            line-height: 1.7;
+            font-family: var(--font-sans);
+            color: var(--text-main);
+            background-color: var(--bg-body);
+            line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            /* Fundo com Grid Técnico contínuo */
+            background-image: 
+                linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+            background-size: 60px 60px;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        ul {
-            list-style: none;
+        /* Linhas Estruturais Globais estilo Google Labs */
+        .line-wrapper {
+            position: relative;
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            max-width: 1320px;
+            margin: 0 auto;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 40px;
         }
 
-        /* Animação de Scroll (Suave e elegante) */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
+        /* Marcas de Interseção do Grid (+) */
+        .grid-cross {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            z-index: 10;
+            pointer-events: none;
         }
 
-        /* ==========================================================================
-           3. COMPONENTES (Botões Premium, Títulos)
-           ========================================================================== */
+        .grid-cross::before, .grid-cross::after {
+            content: '';
+            position: absolute;
+            background-color: var(--text-muted);
+            opacity: 0.4;
+        }
+
+        .grid-cross::before { top: 7px; left: 0; width: 15px; height: 1px; }
+        .grid-cross::after { top: 0; left: 7px; width: 1px; height: 15px; }
+
+        .tech-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 6px 14px;
+            border: 1px solid var(--border-color);
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            color: var(--text-main);
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag .dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-blue);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px var(--accent-blue);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.5; }
+        }
+
+        /* Botões Estilo Labs */
         .btn {
-            position: relative;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 14px 32px;
-            font-size: 1rem;
+            gap: 12px;
+            padding: 16px 32px;
+            font-family: var(--font-display);
+            font-size: 0.95rem;
             font-weight: 600;
-            border-radius: 12px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: -1;
-        }
-
-        .btn:hover::after {
-            left: 150%;
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+            white-space: nowrap;
         }
 
         .btn-primary {
-            background-color: var(--primary-blue);
-            color: var(--bg-white);
-            box-shadow: 0 4px 14px rgba(15, 98, 254, 0.25);
+            background-color: var(--text-main);
+            color: var(--bg-body);
+            border-color: var(--text-main);
         }
 
         .btn-primary:hover {
-            background-color: var(--primary-blue-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(15, 98, 254, 0.35);
+            background-color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 82, 255, 0.25);
         }
 
         .btn-outline {
             background-color: transparent;
-            color: var(--text-dark);
-            border: 2px solid #e2e8f0;
+            color: var(--text-main);
+            border-color: var(--border-strong);
         }
 
         .btn-outline:hover {
-            background-color: var(--bg-light);
-            border-color: var(--primary-blue);
-            color: var(--primary-blue);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            background-color: rgba(15, 23, 42, 0.04);
+            border-color: var(--text-main);
+            transform: translateY(-2px);
         }
 
-        .section-title {
-            font-size: 2.75rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            margin-bottom: 1.25rem;
-            color: var(--text-dark);
+        .btn-sm {
+            padding: 10px 20px;
+            font-size: 0.85rem;
         }
 
-        .section-subtitle {
-            font-size: 1.15rem;
+        /* Barra Superior Técnica */
+        .top-bar {
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-body);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
             color: var(--text-muted);
-            margin-bottom: 3.5rem;
-            max-width: 650px;
+            padding: 8px 0;
+            letter-spacing: 0.05em;
         }
 
-        /* ==========================================================================
-           4. CABEÇALHO (Header - Fundo Branco Elegante)
-           ========================================================================== */
+        .top-bar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Navegação Principal */
         header {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
             z-index: 1000;
-            transition: var(--transition);
-            background-color: var(--bg-white);
-            padding: 16px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
-        }
-
-        header.scrolled {
-            padding: 12px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            background-color: rgba(251, 252, 253, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .nav-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            height: 80px;
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 12px;
-            transition: var(--transition);
-        }
-        
-        .logo-area:hover {
-            opacity: 0.8;
+            gap: 14px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
         }
 
         .logo-area img {
-            height: 38px; 
+            height: 38px;
             width: auto;
         }
 
-        .logo-text {
-            font-size: 1.35rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            color: var(--text-dark);
+        .logo-badge {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            background-color: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            color: var(--text-muted);
         }
 
-        .nav-menu {
+        .nav-links {
             display: flex;
             align-items: center;
             gap: 36px;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 28px;
-        }
-
         .nav-links a {
-            font-size: 0.95rem;
-            font-weight: 600;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 500;
             color: var(--text-muted);
-            transition: var(--transition);
-            position: relative;
+            transition: var(--transition-fast);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-blue);
-            transition: width 0.3s ease;
-        }
+        .nav-links a:hover { color: var(--text-main); }
 
-        .nav-links a:hover {
-            color: var(--primary-blue);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .mobile-menu-btn {
             display: none;
             background: none;
-            border: none;
-            font-size: 1.75rem;
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
             cursor: pointer;
-            color: var(--text-dark);
-            transition: var(--transition);
         }
 
-        /* ==========================================================================
-           5. HERO SECTION
-           ========================================================================== */
+        /* Hero Section */
         .hero {
-            padding: 180px 0 120px;
-            background-color: var(--bg-white);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at top right, rgba(15, 98, 254, 0.03), transparent 40%);
-            z-index: 0;
-            pointer-events: none;
+            padding: 100px 0 120px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.2fr 0.8fr;
             gap: 60px;
             align-items: center;
-            position: relative;
-            z-index: 1;
         }
 
         .hero-content h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -0.03em;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, var(--text-dark) 20%, var(--primary-blue) 100%);
+            font-family: var(--font-display);
+            font-size: 4.2rem;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            margin-bottom: 28px;
+        }
+
+        .hero-content h1 span.gradient-text {
+            background: linear-gradient(135deg, var(--text-main) 30%, var(--accent-blue) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-content p {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
-            margin-bottom: 40px;
+            max-width: 620px;
+            margin-bottom: 44px;
             line-height: 1.7;
         }
 
-        .hero-buttons {
+        .hero-actions {
             display: flex;
+            align-items: center;
             gap: 16px;
+            flex-wrap: wrap;
         }
 
-        .hero-art {
+        /* Wireframe Técnico do Hero */
+        .hero-visual {
             position: relative;
             width: 100%;
-            height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .css-shape {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            animation: float 8s ease-in-out infinite;
-            opacity: 0.8;
-            mix-blend-mode: multiply;
-        }
-
-        .shape-1 {
-            width: 320px;
-            height: 320px;
-            background: linear-gradient(135deg, rgba(15,98,254,0.4), rgba(138,63,252,0.4));
-            top: 5%;
-            left: 5%;
-        }
-
-        .shape-2 {
-            width: 280px;
-            height: 280px;
-            background: linear-gradient(135deg, rgba(138,63,252,0.3), rgba(0,210,255,0.3));
-            bottom: 5%;
-            right: 5%;
-            animation-delay: -3s;
-        }
-
-        .shape-3 {
-            width: 220px;
-            height: 220px;
-            background: radial-gradient(circle, rgba(15,98,254,0.4) 0%, transparent 70%);
-            top: 40%;
-            left: 25%;
-            animation-delay: -5s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(25px, -25px) scale(1.05); }
-        }
-
-        /* ==========================================================================
-           6. SOBRE E VALORES
-           ========================================================================== */
-        .sobre {
-            padding: 120px 0;
-            background-color: var(--bg-light);
-            border-top: 1px solid rgba(0,0,0,0.03);
-            border-bottom: 1px solid rgba(0,0,0,0.03);
-        }
-
-        .sobre-texto {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 800px;
-            margin-bottom: 70px;
-            line-height: 1.8;
-        }
-
-        .valores-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 32px;
-        }
-
-        .valor-card {
-            background: var(--bg-white);
-            padding: 40px 32px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            border: 1px solid #f1f5f9;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .valor-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--accent-purple));
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .valor-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-            border-color: transparent;
-        }
-        
-        .valor-card:hover::before {
-            opacity: 1;
-        }
-
-        .valor-icon {
-            font-size: 2.5rem;
-            margin-bottom: 24px;
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-        
-        .valor-card:hover .valor-icon {
-            transform: scale(1.1) rotate(-5deg);
-        }
-
-        .valor-card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 12px;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .valor-card p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        /* ==========================================================================
-           7. ECOSSISTEMA
-           ========================================================================== */
-        .ecossistema {
-            padding: 120px 0;
-            background-color: var(--bg-white);
-        }
-
-        .eco-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 40px;
-        }
-
-        .eco-card {
-            background: var(--bg-white);
-            border: 1px solid #e2e8f0;
-            border-radius: var(--radius-lg);
-            padding: 48px 40px;
-            transition: var(--transition);
+            height: 480px;
+            border: 1px solid var(--border-color);
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            justify-content: space-between;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
         }
 
-        .eco-card:hover {
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-8px);
-            border-color: #cbd5e1;
+        .hero-visual-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-light);
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 12px;
         }
 
-        .eco-icon-wrapper {
-            width: 72px;
-            height: 72px;
-            border-radius: 20px;
-            background: var(--bg-light);
-            border: 1px solid #e2e8f0;
+        .hero-visual-center {
+            position: relative;
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 30px;
-            transition: var(--transition);
-        }
-        
-        .eco-card:hover .eco-icon-wrapper {
-            background: var(--bg-white);
-            box-shadow: 0 10px 20px rgba(15,98,254,0.1);
-            transform: translateY(-5px);
         }
 
-        .eco-icon-wrapper img {
-            width: 36px;
-            height: 36px;
-            object-fit: contain;
+        .tech-wireframe {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border: 1px solid var(--border-strong);
+            border-radius: 50%;
+            animation: rotate-slow 30s linear infinite;
         }
 
-        .eco-card h3 {
-            font-size: 1.75rem;
-            margin-bottom: 16px;
-            font-weight: 700;
-            letter-spacing: -0.01em;
+        .tech-wireframe-inner {
+            position: absolute;
+            width: 190px;
+            height: 190px;
+            border: 1px dashed var(--accent-blue);
+            transform: rotate(45deg);
+            animation: rotate-reverse 20s linear infinite;
         }
 
-        .eco-card p {
+        .tech-center-logo {
+            position: relative;
+            z-index: 2;
+            width: 90px;
+            height: 90px;
+            background: #ffffff;
+            border: 1px solid var(--border-strong);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(0,82,255,0.15);
+            padding: 14px;
+        }
+
+        .hero-visual-footer {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 12px;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
             color: var(--text-muted);
-            margin-bottom: 36px;
-            font-size: 1.05rem;
-            line-height: 1.6;
-            flex-grow: 1;
         }
 
-        .btn-sm {
-            padding: 12px 24px;
-            font-size: 0.95rem;
-            border-radius: 10px;
+        .stat-box { border-right: 1px solid var(--border-color); padding-right: 8px; }
+        .stat-box:last-child { border-right: none; }
+        .stat-box strong { display: block; color: var(--text-main); font-size: 0.9rem; font-family: var(--font-display); }
+
+        @keyframes rotate-slow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes rotate-reverse { 0% { transform: rotate(45deg); } 100% { transform: rotate(-315deg); } }
+
+        /* Cabeçalho das Seções */
+        .section-header {
+            padding: 80px 0 40px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        /* ==========================================================================
-           8. HISTÓRIA E TIMELINE
-           ========================================================================== */
-        .historia {
-            padding: 120px 0;
-            background-color: var(--bg-light);
-        }
-
-        .historia-content {
+        .section-header-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
+            gap: 40px;
+            align-items: flex-end;
         }
 
-        .historia-texto {
-            font-size: 1.15rem;
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.75rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
             color: var(--text-muted);
-            line-height: 1.9;
+            line-height: 1.7;
         }
 
-        .timeline {
-            position: relative;
-            border-left: 3px solid #e2e8f0;
-            padding-left: 40px;
-            margin-left: 20px;
+        /* Sobre e Valores */
+        .sobre-section { border-bottom: 1px solid var(--border-color); }
+        .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border-color); }
+        .sobre-left { padding: 80px 40px 80px 0; border-right: 1px solid var(--border-color); }
+        .sobre-right { padding: 80px 0 80px 40px; display: flex; flex-direction: column; justify-content: center; }
+        .sobre-texto { font-size: 1.25rem; color: var(--text-muted); line-height: 1.85; }
+
+        .valores-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+        .valor-card {
+            padding: 48px 40px;
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            transition: var(--transition-smooth);
+        }
+        .valor-card:nth-child(2n) { border-right: none; }
+        .valor-card:nth-child(3), .valor-card:nth-child(4) { border-bottom: none; }
+        .valor-card:hover { background-color: var(--bg-subtle); }
+        .valor-num { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 20px; }
+        .valor-card h3 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
+        .valor-card p { color: var(--text-muted); font-size: 0.98rem; }
+
+        /* Ecossistema Modular */
+        .ecossistema-section { border-bottom: 1px solid var(--border-color); }
+        .eco-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+        .eco-card {
+            padding: 60px 48px;
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 380px;
+        }
+        .eco-card:nth-child(2n) { border-right: none; }
+        .eco-card:nth-child(3), .eco-card:nth-child(4) { border-bottom: none; }
+        .eco-card:hover {
+            box-shadow: inset 0 0 0 1px var(--accent-blue), 0 20px 40px rgba(0,0,0,0.04);
+            z-index: 2;
         }
 
-        .timeline-item {
-            position: relative;
-            margin-bottom: 40px;
-            transition: var(--transition);
+        .eco-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 32px; }
+        .eco-icon-box {
+            width: 72px;
+            height: 72px;
+            border-radius: 12px;
+            background-color: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            transition: var(--transition-smooth);
         }
-
-        .timeline-item:last-child {
-            margin-bottom: 0;
+        .eco-card:hover .eco-icon-box {
+            border-color: var(--accent-blue);
+            background-color: rgba(0, 82, 255, 0.04);
+            transform: scale(1.05);
         }
+        .eco-tag { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-light); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; }
+        .eco-card-body h3 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; margin-bottom: 14px; }
+        .eco-card-body p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 36px; }
 
+        /* História e Linha do Tempo */
+        .historia-section { border-bottom: 1px solid var(--border-color); }
+        .historia-grid { display: grid; grid-template-columns: 1fr 1fr; }
+        .historia-info { padding: 80px 60px 80px 0; border-right: 1px solid var(--border-color); }
+        .historia-info p { font-size: 1.15rem; color: var(--text-muted); line-height: 1.85; margin-bottom: 30px; }
+        
+        .founder-box {
+            margin-top: 40px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            border-left: 3px solid var(--accent-blue);
+            border-radius: 4px;
+        }
+        .founder-box strong { display: block; font-family: var(--font-display); font-size: 1.1rem; }
+        .founder-box span { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-light); }
+
+        .timeline-container { padding: 80px 0 80px 60px; display: flex; flex-direction: column; justify-content: center; }
+        .timeline-list { position: relative; border-left: 2px solid var(--border-color); padding-left: 36px; margin-left: 10px; }
+        .timeline-item { position: relative; margin-bottom: 48px; }
+        .timeline-item:last-child { margin-bottom: 0; }
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -49.5px;
+            left: -43px;
             top: 4px;
-            width: 16px;
-            height: 16px;
-            background-color: var(--bg-white);
-            border: 3px solid #cbd5e1;
+            width: 12px;
+            height: 12px;
+            background-color: var(--bg-body);
+            border: 2px solid var(--text-main);
             border-radius: 50%;
-            transition: var(--transition);
-            box-shadow: 0 0 0 4px var(--bg-light);
+            transition: var(--transition-fast);
         }
-
-        .timeline-item:hover {
-            transform: translateX(10px);
-        }
-
         .timeline-item:hover::before {
-            border-color: var(--primary-blue);
-            background-color: var(--primary-blue);
-            box-shadow: 0 0 0 6px rgba(15, 98, 254, 0.15);
+            background-color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 6px rgba(0, 82, 255, 0.15);
         }
+        .timeline-year { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-blue); font-weight: 700; margin-bottom: 4px; }
+        .timeline-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; }
 
-        .timeline-item p {
-            font-weight: 600;
-            color: var(--text-dark);
-            font-size: 1.15rem;
-        }
-
-        /* ==========================================================================
-           9. CHAMADA FINAL (CTA)
-           ========================================================================== */
+        /* Banner CTA Dark */
         .cta-section {
-            padding: 120px 0;
-            background: linear-gradient(135deg, var(--text-dark) 0%, #1e3a8a 100%);
-            color: var(--bg-white);
-            text-align: center;
+            background-color: var(--bg-dark);
+            color: var(--text-inverse);
+            padding: 100px 0;
             position: relative;
-            overflow: hidden;
         }
+        .cta-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; text-align: center; }
+        .cta-inner h2 { font-family: var(--font-display); font-size: 3.2rem; font-weight: 700; margin-bottom: 24px; }
+        .cta-inner p { font-size: 1.2rem; color: #94a3b8; margin-bottom: 40px; }
+        .btn-cta { background-color: #ffffff; color: #0a0d12; border-color: #ffffff; font-size: 1.05rem; padding: 18px 40px; }
+        .btn-cta:hover { background-color: var(--accent-blue); border-color: var(--accent-blue); color: #ffffff; }
 
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0; left: 0;
-            background: radial-gradient(circle at center, rgba(15, 98, 254, 0.2) 0%, transparent 70%);
-            pointer-events: none;
-        }
+        /* Rodapé */
+        footer { background-color: var(--bg-body); border-top: 1px solid var(--border-color); padding: 80px 0 40px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .footer-brand p { color: var(--text-muted); font-size: 0.95rem; margin-top: 16px; max-width: 320px; }
+        .footer-title { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-main); margin-bottom: 24px; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: var(--text-muted); font-size: 0.95rem; transition: var(--transition-fast); }
+        .footer-links a:hover { color: var(--accent-blue); }
+        .footer-bottom { padding-top: 32px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-light); }
 
-        .cta-section .section-title {
-            color: var(--bg-white);
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-section .section-subtitle {
-            color: rgba(255,255,255,0.85);
-            margin: 0 auto 48px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .btn-white {
-            background-color: var(--bg-white);
-            color: var(--text-dark);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        
-        .btn-white:hover {
-            background-color: var(--bg-light);
-            color: var(--primary-blue);
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-        }
-
-        /* ==========================================================================
-           10. RODAPÉ (Footer)
-           ========================================================================== */
-        footer {
-            background-color: var(--bg-white);
-            padding: 100px 0 40px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 80px;
-        }
-
-        .footer-brand .logo-area {
-            margin-bottom: 24px;
-        }
-
-        .footer-brand p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: var(--text-dark);
-        }
-
-        .footer-links li {
-            margin-bottom: 16px;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            font-size: 1rem;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-blue);
-            padding-left: 4px;
-        }
-
-        .footer-bottom {
-            padding-top: 32px;
-            border-top: 1px solid #e2e8f0;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* ==========================================================================
-           11. RESPONSIVIDADE
-           ========================================================================== */
-        @media (max-width: 992px) {
-            .hero-grid, .historia-content {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-            .hero-content {
-                text-align: center;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            .hero-buttons {
-                justify-content: center;
-            }
-            .hero-art {
-                height: 400px;
-            }
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .section-title {
-                font-size: 2.25rem;
-            }
-            .hero-content h1 {
-                font-size: 3rem;
-            }
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .container { padding: 0 24px; }
+            .hero-grid, .section-header-grid, .sobre-grid, .historia-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-content h1 { font-size: 3.2rem; }
+            .sobre-left, .historia-info { padding: 40px 0; border-right: none; border-bottom: 1px solid var(--border-color); }
+            .sobre-right, .timeline-container { padding: 40px 0; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
         }
 
         @media (max-width: 768px) {
-            header {
-                padding: 12px 0;
-            }
-            .nav-menu {
-                position: fixed;
-                top: 73px;
-                left: 0;
-                width: 100%;
-                background: var(--bg-white);
-                flex-direction: column;
-                padding: 32px 24px;
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-                clip-path: circle(0% at 100% 0);
-                transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            }
-            .nav-menu.active {
-                clip-path: circle(150% at 100% 0);
-            }
-            .nav-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 24px;
-                width: 100%;
-            }
-            .nav-links a {
-                font-size: 1.1rem;
-            }
-            .mobile-menu-btn {
-                display: block;
-            }
-            .hero {
-                padding: 140px 0 80px;
-            }
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-            .hero-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
-            .hero-buttons .btn {
-                width: 100%;
-            }
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            .eco-card {
-                padding: 32px 24px;
-            }
+            .top-bar { display: none; }
+            .nav-container { height: 70px; }
+            .nav-links { position: fixed; top: 70px; left: 0; right: 0; background-color: var(--bg-body); border-bottom: 1px solid var(--border-color); flex-direction: column; padding: 30px; gap: 20px; display: none; }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .cta-inner h2 { font-size: 2.2rem; }
+            .valores-grid, .eco-grid { grid-template-columns: 1fr; }
+            .valor-card, .eco-card { border-right: none !important; border-bottom: 1px solid var(--border-color) !important; padding: 40px 24px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <header class="header" role="banner">
-        <div class="container nav-container">
-            <a href="#" class="logo-area" aria-label="Início Sazam Tecnologia">
-                <img src="logooficialsazam.png" alt="Sazam Tecnologia Logo">
-                <span class="logo-text">Sazam Tecnologia</span>
-            </a>
+    <!-- TOP BAR TÉCNICA -->
+    <div class="top-bar">
+        <div class="line-wrapper">
+            <div class="container top-bar-inner">
+                <div class="top-bar-item">
+                    <span><strong style="color: var(--accent-blue);">[ SAZAM OS ]</strong> SYSTEM ONLINE</span>
+                    <span>LAT: 23.5505° S, LONG: 46.6333° W</span>
+                </div>
+                <div class="top-bar-item">
+                    <span>BUILD: 2026.09.v2</span>
+                    <span>ECOSYSTEM: ACTIVE</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header>
+        <div class="line-wrapper">
+            <div class="grid-cross" style="top: -7px; left: -7px;"></div>
+            <div class="grid-cross" style="top: -7px; right: -7px;"></div>
             
-            <button class="mobile-menu-btn" aria-label="Abrir menu">☰</button>
-            
-            <nav class="nav-menu" role="navigation">
-                <ul class="nav-links">
-                    <li><a href="#inicio">Início</a></li>
-                    <li><a href="#sobre">Sobre</a></li>
-                    <li><a href="#ecossistema">Ecossistema</a></li>
-                    <li><a href="#historia">História</a></li>
-                    <li><a href="#contato">Contato</a></li>
-                </ul>
-                <a href="https://sazamworkspace.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                    Conheça o Workspace
+            <div class="container nav-container">
+                <a href="#" class="logo-area">
+                    <img src="logooficialsazam.png" alt="Sazam Tecnologia Logo">
+                    <span>Sazam</span>
+                    <span class="logo-badge">LABS</span>
                 </a>
-            </nav>
+
+                <nav>
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#sobre">Sobre</a></li>
+                        <li><a href="#ecossistema">Ecossistema</a></li>
+                        <li><a href="#historia">História</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </nav>
+
+                <div class="nav-right">
+                    <a href="https://sazamworkspace.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                        Conheça o Workspace ↗
+                    </a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main>
-        <section id="inicio" class="hero">
-            <div class="container hero-grid">
-                <div class="hero-content reveal">
-                    <h1>Construindo o futuro da produtividade com IA.</h1>
-                    <p>A Sazam Tecnologia desenvolve soluções inteligentes que unem inovação, produtividade e inteligência artificial para pessoas, empresas e organizações.</p>
-                    <div class="hero-buttons">
-                        <a href="https://sazamworkspace.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Conheça o Workspace</a>
-                        <a href="#sobre" class="btn btn-outline">Saiba mais</a>
+    <!-- HERO SECTION -->
+    <section class="hero" id="inicio">
+        <div class="line-wrapper">
+            <div class="grid-cross" style="top: -7px; left: -7px;"></div>
+            <div class="grid-cross" style="top: -7px; right: -7px;"></div>
+            
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <div class="tech-tag">
+                            <span class="dot"></span>
+                            INTELIGÊNCIA ARTIFICIAL & TECNOLOGIA
+                        </div>
+                        <h1>Construindo o futuro da produtividade <span class="gradient-text">com IA.</span></h1>
+                        <p>A Sazam Tecnologia desenvolve soluções inteligentes que unem inovação, produtividade e inteligência artificial para pessoas, empresas e organizações.</p>
+                        <div class="hero-actions">
+                            <a href="https://sazamworkspace.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                                Conheça o Workspace ↗
+                            </a>
+                            <a href="#sobre" class="btn btn-outline">
+                                Saiba mais
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="hero-visual">
+                        <div class="hero-visual-header">
+                            <span>// SAZAM CORE ENGINE</span>
+                            <span>STATUS: OPERATIONAL</span>
+                        </div>
+                        <div class="hero-visual-center">
+                            <div class="tech-wireframe"></div>
+                            <div class="tech-wireframe-inner"></div>
+                            <div class="tech-center-logo">
+                                <img src="logooficialsazam.png" alt="Sazam Core">
+                            </div>
+                        </div>
+                        <div class="hero-visual-footer">
+                            <div class="stat-box">
+                                <span>SOLUÇÕES</span>
+                                <strong>WORKSPACE & AI</strong>
+                            </div>
+                            <div class="stat-box">
+                                <span>ARQUITETURA</span>
+                                <strong>CLOUD & IA</strong>
+                            </div>
+                            <div class="stat-box">
+                                <span>REDE</span>
+                                <strong>INTEGRADA</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="hero-art reveal">
-                    <div class="css-shape shape-1"></div>
-                    <div class="css-shape shape-2"></div>
-                    <div class="css-shape shape-3"></div>
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="sobre" class="sobre">
+    <!-- SOBRE E VALORES -->
+    <section class="sobre-section" id="sobre">
+        <div class="line-wrapper">
+            <div class="grid-cross" style="top: -7px; left: -7px;"></div>
+            <div class="grid-cross" style="top: -7px; right: -7px;"></div>
+
             <div class="container">
-                <div class="reveal">
-                    <h2 class="section-title">Quem somos</h2>
-                    <p class="sobre-texto">A Sazam Tecnologia é uma empresa brasileira dedicada ao desenvolvimento de soluções digitais modernas, plataformas inteligentes e tecnologias baseadas em Inteligência Artificial. Nosso propósito é tornar a tecnologia mais acessível, eficiente e útil para pessoas e empresas, criando produtos que simplificam o trabalho e impulsionam a inovação.</p>
+                <div class="section-header">
+                    <div class="section-header-grid">
+                        <div>
+                            <div class="tech-tag">// SOBRE A EMPRESA</div>
+                            <h2 class="section-title">Quem somos</h2>
+                        </div>
+                        <div>
+                            <p class="section-subtitle">Tecnologia avançada projetada para simplificar o trabalho e acelerar o desenvolvimento humano.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sobre-grid">
+                    <div class="sobre-left">
+                        <p class="sobre-texto">
+                            A <strong>Sazam Tecnologia</strong> é uma empresa brasileira dedicada ao desenvolvimento de soluções digitais modernas, plataformas inteligentes e tecnologias baseadas em Inteligência Artificial. Nosso propósito é tornar a tecnologia mais acessível, eficiente e útil para pessoas e empresas, criando produtos que simplificam o trabalho e impulsionam a inovação.
+                        </p>
+                    </div>
+                    <div class="sobre-right">
+                        <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); line-height: 2;">
+                            <div><strong style="color: var(--accent-blue);">01 /</strong> FOCO EM IA & AUTOMAÇÃO</div>
+                            <div><strong style="color: var(--accent-blue);">02 /</strong> ECOSSISTEMA MODULAR INTEGRADO</div>
+                            <div><strong style="color: var(--accent-blue);">03 /</strong> PRODUTIVIDADE EM ESCALA</div>
+                            <div><strong style="color: var(--accent-blue);">04 /</strong> TECNOLOGIA COMPROVADA</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="valores-grid">
-                    <div class="valor-card reveal">
-                        <span class="valor-icon" role="img" aria-label="Foguete">🚀</span>
-                        <h3>Inovação</h3>
-                        <p>Desenvolvemos soluções voltadas para o futuro.</p>
+                    <div class="valor-card">
+                        <div class="valor-num">[ 01 ] // FUTURO</div>
+                        <h3>🚀 Inovação</h3>
+                        <p>Desenvolvemos soluções voltadas para o futuro com tecnologia de ponta.</p>
                     </div>
-                    <div class="valor-card reveal">
-                        <span class="valor-icon" role="img" aria-label="Cérebro">🧠</span>
-                        <h3>Inteligência Artificial</h3>
-                        <p>Aplicamos IA para aumentar produtividade e eficiência.</p>
+                    <div class="valor-card">
+                        <div class="valor-num">[ 02 ] // EFICIÊNCIA</div>
+                        <h3>🧠 Inteligência Artificial</h3>
+                        <p>Aplicamos IA para aumentar produtividade e eficiência em processos do dia a dia.</p>
                     </div>
-                    <div class="valor-card reveal">
-                        <span class="valor-icon" role="img" aria-label="Cadeado">🔒</span>
-                        <h3>Segurança</h3>
-                        <p>Projetamos plataformas confiáveis e seguras.</p>
+                    <div class="valor-card">
+                        <div class="valor-num">[ 03 ] // CONFIANÇA</div>
+                        <h3>🔒 Segurança</h3>
+                        <p>Projetamos plataformas confiáveis e seguras protegendo dados e privacidade.</p>
                     </div>
-                    <div class="valor-card reveal">
-                        <span class="valor-icon" role="img" aria-label="Mundo">🌍</span>
-                        <h3>Acessibilidade</h3>
-                        <p>Criamos tecnologia simples e acessível para todos.</p>
+                    <div class="valor-card">
+                        <div class="valor-num">[ 04 ] // INCLUSÃO</div>
+                        <h3>🌍 Acessibilidade</h3>
+                        <p>Criamos tecnologia simples e acessível para todos os tipos de usuários.</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="ecossistema" class="ecossistema">
+    <!-- ECOSSISTEMA SECTION -->
+    <section class="ecossistema-section" id="ecossistema">
+        <div class="line-wrapper">
+            <div class="grid-cross" style="top: -7px; left: -7px;"></div>
+            <div class="grid-cross" style="top: -7px; right: -7px;"></div>
+
             <div class="container">
-                <div class="reveal">
-                    <h2 class="section-title">Ecossistema Sazam</h2>
-                    <p class="section-subtitle">Conheça as principais soluções desenvolvidas pela Sazam Tecnologia.</p>
+                <div class="section-header">
+                    <div class="section-header-grid">
+                        <div>
+                            <div class="tech-tag">// NOSSA REDE DE PRODUTOS</div>
+                            <h2 class="section-title">Ecossistema Sazam</h2>
+                        </div>
+                        <div>
+                            <p class="section-subtitle">Conheça as principais soluções desenvolvidas pela Sazam Tecnologia para revolucionar sua rotina.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="eco-grid">
-                    <div class="eco-card reveal">
-                        <div class="eco-icon-wrapper">
-                            <img src="icon sazam workspace.png" alt="Sazam Workspace Ícone">
+                    <!-- CARD 1: WORKSPACE -->
+                    <div class="eco-card">
+                        <div>
+                            <div class="eco-card-top">
+                                <div class="eco-icon-box">
+                                    <img src="icon sazam workspace.png" alt="Sazam Workspace Icon">
+                                </div>
+                                <span class="eco-tag">PLATAFORMA</span>
+                            </div>
+                            <div class="eco-card-body">
+                                <h3>Sazam Workspace</h3>
+                                <p>Plataforma de produtividade com inteligência artificial, documentos, tarefas, projetos e colaboração.</p>
+                            </div>
                         </div>
-                        <h3>Sazam Workspace</h3>
-                        <p>Plataforma de produtividade com inteligência artificial, documentos, tarefas, projetos e colaboração.</p>
-                        <a href="https://sazamworkspace.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Conhecer</a>
-                    </div>
-                    
-                    <div class="eco-card reveal">
-                        <div class="eco-icon-wrapper">
-                            <img src="icon sazam ai.png" alt="Sazam AI Ícone">
+                        <div class="eco-card-footer">
+                            <a href="https://sazamworkspace.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                                Acessar Workspace ↗
+                            </a>
                         </div>
-                        <h3>Sazam AI</h3>
-                        <p>Assistente inteligente desenvolvido para tornar o trabalho mais rápido, simples e eficiente.</p>
-                        <a href="https://sazam-ai-n305.bolt.host" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Conheça</a>
-                    </div>
-
-                    <div class="eco-card reveal">
-                        <div class="eco-icon-wrapper">
-                            <img src="icon sazam Labs.png" alt="Sazam Labs Ícone">
-                        </div>
-                        <h3>Sazam Labs</h3>
-                        <p>Centro de pesquisa, inovação e desenvolvimento de novas tecnologias e soluções de Inteligência Artificial.</p>
-                        <button class="btn btn-outline btn-sm">Conhecer</button>
                     </div>
 
-                    <div class="eco-card reveal">
-                        <div class="eco-icon-wrapper">
-                            <img src="logooficialsazam.png" alt="Five Coin Ícone">
+                    <!-- CARD 2: SAZAM AI -->
+                    <div class="eco-card">
+                        <div>
+                            <div class="eco-card-top">
+                                <div class="eco-icon-box">
+                                    <img src="icon sazam ai.png" alt="Sazam AI Icon">
+                                </div>
+                                <span class="eco-tag">INTELECTO AI</span>
+                            </div>
+                            <div class="eco-card-body">
+                                <h3>Sazam AI</h3>
+                                <p>Assistente inteligente desenvolvido para tornar o trabalho mais rápido, simples e eficiente.</p>
+                            </div>
                         </div>
-                        <h3>Five Coin</h3>
-                        <p>A moeda digital integrada da Sazam desenvolvida para impulsionar a economia do nosso ecossistema.</p>
-                        <button class="btn btn-outline btn-sm">Conhecer</button>
+                        <div class="eco-card-footer">
+                            <a href="https://sazam-ai-n305.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                                Experimentar AI ↗
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3: SAZAM LABS -->
+                    <div class="eco-card">
+                        <div>
+                            <div class="eco-card-top">
+                                <div class="eco-icon-box">
+                                    <img src="icon sazam Labs.png" alt="Sazam Labs Icon">
+                                </div>
+                                <span class="eco-tag">PESQUISA & R&D</span>
+                            </div>
+                            <div class="eco-card-body">
+                                <h3>Sazam Labs</h3>
+                                <p>Centro de pesquisa, inovação e desenvolvimento de novas tecnologias e soluções de Inteligência Artificial.</p>
+                            </div>
+                        </div>
+                        <div class="eco-card-footer">
+                            <a href="#contato" class="btn btn-outline btn-sm">
+                                Saiba mais
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- CARD 4: FIVE COIN -->
+                    <div class="eco-card">
+                        <div>
+                            <div class="eco-card-top">
+                                <div class="eco-icon-box">
+                                    <img src="logooficialsazam.png" alt="Five Coin Icon">
+                                </div>
+                                <span class="eco-tag">FINTECH & ATIVOS</span>
+                            </div>
+                            <div class="eco-card-body">
+                                <h3>Five Coin</h3>
+                                <p>A moeda digital integrada da Sazam desenvolvida para impulsionar a economia do nosso ecossistema.</p>
+                            </div>
+                        </div>
+                        <div class="eco-card-footer">
+                            <a href="#contato" class="btn btn-outline btn-sm">
+                                Em breve
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="historia" class="historia">
+    <!-- HISTÓRIA E TIMELINE -->
+    <section class="historia-section" id="historia">
+        <div class="line-wrapper">
+            <div class="grid-cross" style="top: -7px; left: -7px;"></div>
+            <div class="grid-cross" style="top: -7px; right: -7px;"></div>
+
             <div class="container">
-                <h2 class="section-title reveal">Nossa História</h2>
-                
-                <div class="historia-content">
-                    <div class="reveal">
-                        <p class="historia-texto">
-                            A Sazam Tecnologia foi fundada por Guilherme Rodrigues com o propósito de criar soluções inovadoras capazes de aproximar pessoas e empresas do futuro da tecnologia. Desde o início, a empresa nasceu com uma visão de longo prazo: desenvolver produtos inteligentes, acessíveis e voltados para aumentar a produtividade através da Inteligência Artificial. Hoje, a Sazam continua evoluindo seu ecossistema de plataformas, buscando transformar ideias em tecnologias que geram impacto real.
+                <div class="section-header">
+                    <div class="tech-tag">// TRAJETÓRIA</div>
+                    <h2 class="section-title">Nossa História</h2>
+                </div>
+
+                <div class="historia-grid">
+                    <div class="historia-info">
+                        <p>
+                            A Sazam Tecnologia foi fundada por <strong>Guilherme Rodrigues</strong> com o propósito de criar soluções inovadoras capables de aproximar pessoas e empresas do futuro da tecnologia.
                         </p>
+                        <p>
+                            Desde o início, a empresa nasceu com uma visão de longo prazo: desenvolver produtos inteligentes, acessíveis e voltados para aumentar a produtividade através da Inteligência Artificial. Hoje, a Sazam continua evoluindo seu ecossistema de plataformas, buscando transformar ideias em tecnologias que geram impacto real.
+                        </p>
+                        
+                        <div class="founder-box">
+                            <strong>Guilherme Rodrigues</strong>
+                            <span>Fundador & Liderança de Produto</span>
+                        </div>
                     </div>
-                    
-                    <div class="timeline reveal">
-                        <div class="timeline-item">
-                            <p>Fundação da Sazam Tecnologia</p>
-                        </div>
-                        <div class="timeline-item">
-                            <p>Criação do Sazam Workspace</p>
-                        </div>
-                        <div class="timeline-item">
-                            <p>Nascimento da Sazam AI</p>
-                        </div>
-                        <div class="timeline-item">
-                            <p>Criação da Sazam Labs</p>
+
+                    <div class="timeline-container">
+                        <div class="timeline-list">
+                            <div class="timeline-item">
+                                <div class="timeline-year">MARCO 01</div>
+                                <div class="timeline-title">Fundação da Sazam Tecnologia</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">MARCO 02</div>
+                                <div class="timeline-title">Criação do Sazam Workspace</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">MARCO 03</div>
+                                <div class="timeline-title">Nascimento da Sazam AI</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">MARCO 04</div>
+                                <div class="timeline-title">Criação da Sazam Labs</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="cta-section">
-            <div class="container reveal">
-                <h2 class="section-title">O futuro começa agora.</h2>
-                <p class="section-subtitle">Junte-se à Sazam Tecnologia e conheça um novo jeito de trabalhar com Inteligência Artificial.</p>
-                <a href="https://sazamworkspace.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn btn-white">Conheça o Workspace</a>
-            </div>
-        </section>
-    </main>
-
-    <footer id="contato" role="contentinfo">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <a href="#" class="logo-area" aria-label="Início Sazam Tecnologia">
-                        <img src="logooficialsazam.png" alt="Sazam Tecnologia Logo">
-                        <span class="logo-text">Sazam Tecnologia</span>
+    <!-- BANNER CTA -->
+    <section class="cta-section" id="contato">
+        <div class="line-wrapper">
+            <div class="container">
+                <div class="cta-inner">
+                    <div class="tech-tag" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">
+                        <span class="dot" style="background-color: #00d2ff; box-shadow: 0 0 10px #00d2ff;"></span>
+                        EXPERIMENTE O FUTURO AGORA
+                    </div>
+                    <h2>Pronto para transformar sua produtividade?</h2>
+                    <p>Entre no ecossistema Sazam e descubra o poder de trabalhar de forma integrada com Inteligência Artificial.</p>
+                    <a href="https://sazamworkspace.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn btn-cta">
+                        Acessar Sazam Workspace ↗
                     </a>
-                    <p style="margin-top: 15px;">Construindo o futuro da produtividade com IA.</p>
-                </div>
-                
-                <div class="footer-links">
-                    <h4 class="footer-title">Links Úteis</h4>
-                    <ul>
-                        <li><a href="#inicio">Início</a></li>
-                        <li><a href="#sobre">Sobre Nós</a></li>
-                        <li><a href="#ecossistema">Ecossistema</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h4 class="footer-title">Contato</h4>
-                    <ul>
-                        <li><a href="#">Suporte</a></li>
-                        <li><a href="#">Termos de Serviço</a></li>
-                        <li><a href="#">Política de Privacidade</a></li>
-                    </ul>
                 </div>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2026 Sazam Tecnologia. Todos os direitos reservados.</p>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <div class="line-wrapper">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="#" class="logo-area">
+                            <img src="logooficialsazam.png" alt="Sazam Logo">
+                            <span>Sazam Tecnologia</span>
+                        </a>
+                        <p>Desenvolvendo soluções inteligentes que unem inovação, produtividade e inteligência artificial.</p>
+                    </div>
+
+                    <div>
+                        <div class="footer-title">// ECOSSISTEMA</div>
+                        <ul class="footer-links">
+                            <li><a href="https://sazamworkspace.bolt.host/" target="_blank">Sazam Workspace</a></li>
+                            <li><a href="https://sazam-ai-n305.bolt.host/" target="_blank">Sazam AI</a></li>
+                            <li><a href="#ecossistema">Sazam Labs</a></li>
+                            <li><a href="#ecossistema">Five Coin</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <div class="footer-title">// NAVEGAÇÃO</div>
+                        <ul class="footer-links">
+                            <li><a href="#inicio">Início</a></li>
+                            <li><a href="#sobre">Sobre Nós</a></li>
+                            <li><a href="#historia">História</a></li>
+                            <li><a href="#contato">Contato</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <div class="footer-title">// STATUS</div>
+                        <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); line-height: 1.8;">
+                            <div>SYSTEM: ONLINE</div>
+                            <div>SERVERS: GLOBAL</div>
+                            <div>REGION: BRASIL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div>© 2026 Sazam Tecnologia. Todos os direitos reservados.</div>
+                    <div>FUNDADO POR GUILHERME RODRIGUES</div>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- INTERATIVIDADE JS -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animação de reveal ao rolar a página
-            const reveals = document.querySelectorAll('.reveal');
-            
-            function revealOnScroll() {
-                for (let i = 0; i < reveals.length; i++) {
-                    const windowHeight = window.innerHeight;
-                    const elementTop = reveals[i].getBoundingClientRect().top;
-                    const elementVisible = 100;
-                    
-                    if (elementTop < windowHeight - elementVisible) {
-                        reveals[i].classList.add('active');
-                    }
-                }
-            }
-            
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll(); // Dispara logo no carregamento
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
 
-            // Menu Mobile
-            const mobileBtn = document.querySelector('.mobile-menu-btn');
-            const navMenu = document.querySelector('.nav-menu');
-
-            mobileBtn.addEventListener('click', function() {
-                navMenu.classList.toggle('active');
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
             });
-        });
+        }
     </script>
 </body>
 </html>
