@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sazam Tecnologia — Construindo o futuro da produtividade com IA</title>
+  <title>Sazam Tecnologia — Building the future of productivity with AI</title>
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="icosazam.svg">
   
-  <!-- Tipografia Inter via Google Fonts -->
+  <!-- Inter Typography via Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -70,7 +70,27 @@
     }
 
     /* ==========================================================================
-       NAVBAR
+       SCROLL ANIMATION CLASSES
+       ========================================================================== */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-delay-1 { transition-delay: 0.1s; }
+    .stagger-delay-2 { transition-delay: 0.2s; }
+    .stagger-delay-3 { transition-delay: 0.3s; }
+    .stagger-delay-4 { transition-delay: 0.4s; }
+
+    /* ==========================================================================
+       NAVBAR & LANGUAGE SELECTOR
        ========================================================================== */
     .navbar {
       position: sticky;
@@ -103,6 +123,47 @@
     .brand-logo img {
       width: 28px;
       height: 28px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #F8F9FA;
+      border: 1px solid var(--border-light);
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-main);
+      transition: border-color 0.2s ease;
+    }
+
+    .lang-selector:hover {
+      border-color: #CCCCCC;
+    }
+
+    .lang-selector svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--text-muted);
+    }
+
+    .lang-selector select {
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-main);
+      cursor: pointer;
+      outline: none;
     }
 
     .btn-workspace {
@@ -306,7 +367,7 @@
       border: 1px solid var(--border-dark-card);
       border-radius: 20px;
       padding: 32px;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -316,8 +377,8 @@
 
     .value-card:hover {
       border-color: rgba(37, 99, 235, 0.5);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
     }
 
     .value-number {
@@ -366,6 +427,7 @@
       justify-content: center;
       gap: 48px;
       margin-bottom: 32px;
+      flex-wrap: wrap;
     }
 
     .product-icon-box {
@@ -383,7 +445,7 @@
 
     .product-icon-box:hover {
       background-color: #F1F5F9;
-      transform: translateY(-2px);
+      transform: translateY(-4px);
     }
 
     .product-icon-box.active {
@@ -591,9 +653,18 @@
         font-size: 1rem;
       }
 
+      .nav-actions {
+        gap: 8px;
+      }
+
+      .lang-selector {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+      }
+
       .btn-workspace {
-        padding: 8px 14px;
-        font-size: 0.8125rem;
+        padding: 8px 12px;
+        font-size: 0.75rem;
       }
 
       .hero {
@@ -633,26 +704,43 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar" aria-label="Navegação principal">
+  <nav class="navbar" aria-label="Main Navigation">
     <div class="container navbar-container">
-      <a href="#" class="brand-logo" aria-label="Sazam Tecnologia Página Inicial">
-        <img src="icosazam.svg" alt="Sazam Símbolo Oficial">
+      <a href="#" class="brand-logo" aria-label="Sazam Tecnologia Home Page">
+        <img src="icosazam.svg" alt="Sazam Official Symbol">
         <span>Sazam Tecnologia</span>
       </a>
-      <a href="https://sazamworkspace.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn-workspace">
-        Conheça o Workspace
-      </a>
+      
+      <div class="nav-actions">
+        <!-- Language Selector -->
+        <div class="lang-selector">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <select id="langSelect" aria-label="Select Language">
+            <option value="en" selected>English</option>
+            <option value="pt">Português</option>
+            <option value="es">Español</option>
+          </select>
+        </div>
+
+        <a href="https://sazamworkspace.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn-workspace" data-i18n="nav_workspace">
+          Explore Workspace
+        </a>
+      </div>
     </div>
   </nav>
 
   <!-- HERO SECTION -->
-  <section class="hero" aria-label="Apresentação do ecossistema">
-    <div class="container">
-      <h1 class="hero-title">Construindo o futuro da produtividade com IA.</h1>
-      <p class="hero-subtitle">Soluções digitais com utilidade real, inteligência e propósito.</p>
+  <section class="hero" aria-label="Ecosystem Presentation">
+    <div class="container reveal-on-scroll">
+      <h1 class="hero-title" data-i18n="hero_title">Building the future of productivity with AI.</h1>
+      <p class="hero-subtitle" data-i18n="hero_subtitle">Digital solutions with real utility, intelligence, and purpose.</p>
     </div>
 
-    <div class="hero-canvas-container" id="heroCanvas">
+    <div class="hero-canvas-container reveal-on-scroll stagger-delay-1" id="heroCanvas">
       <div class="ground-line"></div>
       
       <!-- Shape 1: Rounded Square Black -->
@@ -693,96 +781,99 @@
   </section>
 
   <!-- INSTITUTIONAL SECTION -->
-  <section class="institutional" id="historia">
+  <section class="institutional" id="story">
     <div class="container">
-      <span class="section-header-tag">Sobre a Sazam</span>
-      <h2 class="section-title">A tecnologia precisa fazer sentido.</h2>
+      <span class="section-header-tag reveal-on-scroll" data-i18n="tag_about">About Sazam</span>
+      <h2 class="section-title reveal-on-scroll stagger-delay-1" data-i18n="inst_title">Technology needs to make sense.</h2>
       
       <div class="story-grid">
-        <div class="story-text">
-          <p>A Sazam nasceu da vontade de transformar ideias em soluções digitais capazes de fazer diferença na vida das pessoas.</p>
-          <p>Surgiu como um projeto independente de tecnologia e vem evoluindo em busca de uma proposta clara: desenvolver produtos próprios que tornem atividades cotidianas mais simples, organizadas e produtivas.</p>
-          <p>Mais do que acompanhar tendências, a Sazam busca compreender as necessidades reais e transformar inteligência computacional em ferramentas práticas. Seu desenvolvimento é guiado pela simplicidade, pela inovação com propósito e pela busca constante por qualidade.</p>
+        <div class="story-text reveal-on-scroll stagger-delay-2">
+          <p data-i18n="inst_p1">Sazam was born from the desire to transform ideas into digital solutions capable of making a real difference in people's lives.</p>
+          <p data-i18n="inst_p2">It emerged as an independent technology project and has been evolving with a clear mission: to develop proprietary products that make everyday activities simpler, more organized, and more productive.</p>
+          <p data-i18n="inst_p3">More than following trends, Sazam seeks to understand real needs and turn computational intelligence into practical tools. Its development is guided by simplicity, purposeful innovation, and a constant pursuit of quality.</p>
         </div>
         
-        <div class="story-card-accent">
-          <h3>Ecossistema em Evolução</h3>
-          <p>A Sazam está fortalecendo as bases de um ecossistema de produtos digitais, no qual cada solução deve ter uma razão para existir e um benefício claro para quem a utiliza.</p>
+        <div class="story-card-accent reveal-on-scroll stagger-delay-3">
+          <h3 data-i18n="card_eco_title">Evolving Ecosystem</h3>
+          <p data-i18n="card_eco_desc">Sazam is strengthening the foundations of a digital product ecosystem, where every solution must have a purpose to exist and a clear benefit for those who use it.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- VALUES SECTION -->
-  <section class="values-section" id="valores">
+  <section class="values-section" id="values">
     <div class="container">
-      <div class="values-header">
-        <span class="section-header-tag">Princípios</span>
-        <h2 class="section-title">O que orienta cada produto.</h2>
+      <div class="values-header reveal-on-scroll">
+        <span class="section-header-tag" data-i18n="tag_principles">Principles</span>
+        <h2 class="section-title" data-i18n="val_title">What guides every product.</h2>
       </div>
 
       <div class="values-grid">
-        <div class="value-card">
+        <div class="value-card reveal-on-scroll stagger-delay-1">
           <span class="value-number">01</span>
-          <h3>Utilidade real</h3>
-          <p>Toda solução deve partir de uma necessidade identificável e oferecer benefícios concretos. A tecnologia é um meio para gerar valor, não um fim em si mesma.</p>
+          <h3 data-i18n="val1_h">Real Utility</h3>
+          <p data-i18n="val1_p">Every solution must start from an identifiable need and offer concrete benefits. Technology is a means to generate value, not an end in itself.</p>
         </div>
 
-        <div class="value-card">
+        <div class="value-card reveal-on-scroll stagger-delay-2">
           <span class="value-number">02</span>
-          <h3>Simplicidade</h3>
-          <p>Transformar complexidade tecnológica em experiências claras, intuitivas e práticas.</p>
+          <h3 data-i18n="val2_h">Simplicity</h3>
+          <p data-i18n="val2_p">Transforming technological complexity into clear, intuitive, and practical experiences.</p>
         </div>
 
-        <div class="value-card">
+        <div class="value-card reveal-on-scroll stagger-delay-3">
           <span class="value-number">03</span>
-          <h3>Inovação com propósito</h3>
-          <p>Utilizar novas ideias e tecnologias para resolver problemas e criar possibilidades relevantes.</p>
+          <h3 data-i18n="val3_h">Purposeful Innovation</h3>
+          <p data-i18n="val3_p">Utilizing new ideas and technologies to solve problems and create relevant possibilities.</p>
         </div>
 
-        <div class="value-card">
+        <div class="value-card reveal-on-scroll stagger-delay-1">
           <span class="value-number">04</span>
-          <h3>Qualidade e evolução contínua</h3>
-          <p>Aprimorar funcionalidade, experiência do usuário e confiabilidade por meio de testes, aprendizado e feedback.</p>
+          <h3 data-i18n="val4_h">Quality & Continuous Evolution</h3>
+          <p data-i18n="val4_p">Enhancing functionality, user experience, and reliability through testing, learning, and feedback.</p>
         </div>
 
-        <div class="value-card">
+        <div class="value-card reveal-on-scroll stagger-delay-2">
           <span class="value-number">05</span>
-          <h3>Acessibilidade</h3>
-          <p>Reduzir barreiras de uso e tornar os produtos compreensíveis para diferentes perfis de usuários.</p>
+          <h3 data-i18n="val5_h">Accessibility</h3>
+          <p data-i18n="val5_p">Reducing usage barriers and making products understandable for different user profiles.</p>
         </div>
 
-        <div class="value-card">
+        <div class="value-card reveal-on-scroll stagger-delay-3">
           <span class="value-number">06</span>
-          <h3>Responsabilidade e confiança</h3>
-          <p>Tratar privacidade, segurança, proteção de dados e transparência com seriedade.</p>
+          <h3 data-i18n="val6_h">Responsibility & Trust</h3>
+          <p data-i18n="val6_p">Treating privacy, security, data protection, and transparency with absolute seriousness.</p>
         </div>
 
-        <div class="value-card">
+        <div class="value-card reveal-on-scroll stagger-delay-4">
           <span class="value-number">07</span>
-          <h3>Coerência</h3>
-          <p>Manter consistência entre o propósito declarado pela Sazam, suas decisões e aquilo que seus produtos efetivamente entregam.</p>
+          <h3 data-i18n="val7_h">Consistency</h3>
+          <p data-i18n="val7_p">Maintaining alignment between Sazam's declared purpose, its decisions, and what its products effectively deliver.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- PRODUCTS ECOSYSTEM SECTION -->
-  <section class="ecosystem" id="produtos">
+  <section class="ecosystem" id="products">
     <div class="container">
-      <span class="section-header-tag">Produtos</span>
-      <h2 class="section-title">Um ecossistema. Diferentes possibilidades.</h2>
+      <span class="section-header-tag reveal-on-scroll" data-i18n="tag_products">Products</span>
+      <h2 class="section-title reveal-on-scroll stagger-delay-1" data-i18n="prod_title">One ecosystem. Diverse possibilities.</h2>
       
-      <div class="ecosystem-intro">
-        <p>A Sazam desenvolve produtos digitais próprios, orientados por necessidades reais e pelo propósito de tornar a tecnologia mais útil no dia a dia.</p>
+      <div class="ecosystem-intro reveal-on-scroll stagger-delay-2">
+        <p data-i18n="prod_intro">Sazam develops its own digital products, guided by real needs and the purpose of making technology more useful in daily life.</p>
       </div>
 
-      <div class="products-icons-row">
-        <div class="product-icon-box" id="iconWorkspace" role="button" tabindex="0" aria-label="Ver detalhes do Sazam Workspace">
-          <img src="workspace.svg" alt="Sazam Workspace Ícone">
+      <div class="products-icons-row reveal-on-scroll stagger-delay-3">
+        <div class="product-icon-box" id="iconWorkspace" role="button" tabindex="0" aria-label="View details for Sazam Workspace">
+          <img src="workspace.svg" alt="Sazam Workspace Icon">
         </div>
-        <div class="product-icon-box" id="iconAI" role="button" tabindex="0" aria-label="Ver detalhes do Sazam AI">
-          <img src="sazamai.svg" alt="Sazam AI Ícone">
+        <div class="product-icon-box" id="iconAI" role="button" tabindex="0" aria-label="View details for Sazam AI">
+          <img src="sazamai.svg" alt="Sazam AI Icon">
+        </div>
+        <div class="product-icon-box" id="iconMaps" role="button" tabindex="0" aria-label="View details for Sazam Maps">
+          <img src="mapsicon.svg" alt="Sazam Maps Icon">
         </div>
       </div>
 
@@ -790,13 +881,13 @@
       <div class="product-detail-panel" id="panelWorkspace">
         <div class="panel-header">
           <h3 class="panel-title">Sazam Workspace</h3>
-          <button class="close-panel-btn" aria-label="Fechar painel">&times;</button>
+          <button class="close-panel-btn" aria-label="Close panel">&times;</button>
         </div>
-        <p class="panel-description">
-          Um espaço digital voltado à produtividade e à organização, com recursos de inteligência artificial que auxiliam em atividades como a escrita e a elaboração de documentos. Desenvolvido para tornar tarefas mais práticas e ajudar os usuários a organizar informações e trabalhar com mais eficiência.
+        <p class="panel-description" data-i18n="workspace_desc">
+          A digital space tailored for productivity and organization, featuring artificial intelligence tools that assist in writing and document creation. Designed to streamline tasks and help users organize information and work more efficiently.
         </p>
         <a href="https://sazamworkspace.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn-know-more">
-          Conhecer
+          <span data-i18n="btn_discover">Discover</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
       </div>
@@ -805,13 +896,28 @@
       <div class="product-detail-panel" id="panelAI">
         <div class="panel-header">
           <h3 class="panel-title">Sazam AI</h3>
-          <button class="close-panel-btn" aria-label="Fechar painel">&times;</button>
+          <button class="close-panel-btn" aria-label="Close panel">&times;</button>
         </div>
-        <p class="panel-description">
-          Um produto do ecossistema Sazam dedicado a experiências com inteligência artificial. Conheça a proposta e os recursos disponíveis na plataforma.
+        <p class="panel-description" data-i18n="ai_desc">
+          A product within the Sazam ecosystem dedicated to artificial intelligence experiences. Explore the vision and available features on the platform.
         </p>
         <a href="https://sazam-ai-n305.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn-know-more">
-          Conhecer
+          <span data-i18n="btn_discover">Discover</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+
+      <!-- Maps Detail Panel -->
+      <div class="product-detail-panel" id="panelMaps">
+        <div class="panel-header">
+          <h3 class="panel-title">Sazam Maps</h3>
+          <button class="close-panel-btn" aria-label="Close panel">&times;</button>
+        </div>
+        <p class="panel-description" data-i18n="maps_desc">
+          An interactive digital mapping and navigation experience designed to simplify spatial exploration and location organization across the ecosystem.
+        </p>
+        <a href="https://mapssazam.bolt.host/" target="_blank" rel="noopener noreferrer" class="btn-know-more">
+          <span data-i18n="btn_discover">Discover</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
       </div>
@@ -821,13 +927,13 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-content">
+      <div class="footer-content reveal-on-scroll">
         <div class="footer-brand">
           <div class="footer-logo">
             <img src="icosazam.svg" alt="Sazam Tecnologia Logo">
             <span>Sazam Tecnologia</span>
           </div>
-          <p class="footer-tagline">Tecnologia com propósito. Produtos com utilidade.</p>
+          <p class="footer-tagline" data-i18n="footer_tagline">Technology with purpose. Products with utility.</p>
           <div class="footer-contact-info">
             <a href="mailto:contato@sazamtecnologia.site">contato@sazamtecnologia.site</a>
             <a href="tel:+5543996363109">(43) 99636-3109</a>
@@ -835,26 +941,27 @@
         </div>
 
         <div>
-          <h4 class="footer-links-title">Ecossistema</h4>
+          <h4 class="footer-links-title" data-i18n="footer_title_eco">Ecosystem</h4>
           <ul class="footer-links-list">
             <li><a href="https://sazamworkspace.bolt.host/" target="_blank" rel="noopener noreferrer">Sazam Workspace</a></li>
             <li><a href="https://sazam-ai-n305.bolt.host/" target="_blank" rel="noopener noreferrer">Sazam AI</a></li>
+            <li><a href="https://mapssazam.bolt.host/" target="_blank" rel="noopener noreferrer">Sazam Maps</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="footer-links-title">Institucional</h4>
+          <h4 class="footer-links-title" data-i18n="footer_title_inst">Institutional</h4>
           <ul class="footer-links-list">
-            <li><a href="#historia">História</a></li>
-            <li><a href="#valores">Valores</a></li>
-            <li><a href="#produtos">Produtos</a></li>
+            <li><a href="#story" data-i18n="link_story">Story</a></li>
+            <li><a href="#values" data-i18n="link_values">Values</a></li>
+            <li><a href="#products" data-i18n="link_products">Products</a></li>
           </ul>
         </div>
       </div>
 
-      <div class="footer-bottom">
-        <p>&copy; <span id="currentYear"></span> Sazam Tecnologia. Todos os direitos reservados.</p>
-        <p>Sazam — Ecossistema Digital</p>
+      <div class="footer-bottom reveal-on-scroll">
+        <p>&copy; <span id="currentYear"></span> Sazam Tecnologia. <span data-i18n="footer_rights">All rights reserved.</span></p>
+        <p data-i18n="footer_sub">Sazam — Digital Ecosystem</p>
       </div>
     </div>
   </footer>
@@ -865,20 +972,178 @@
       // 1. Footer Year
       document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-      // 2. Product Toggle Logic
+      // 2. Multilingual Translations Dictionary
+      const translations = {
+        en: {
+          nav_workspace: "Explore Workspace",
+          hero_title: "Building the future of productivity with AI.",
+          hero_subtitle: "Digital solutions with real utility, intelligence, and purpose.",
+          tag_about: "About Sazam",
+          inst_title: "Technology needs to make sense.",
+          inst_p1: "Sazam was born from the desire to transform ideas into digital solutions capable of making a real difference in people's lives.",
+          inst_p2: "It emerged as an independent technology project and has been evolving with a clear mission: to develop proprietary products that make everyday activities simpler, more organized, and more productive.",
+          inst_p3: "More than following trends, Sazam seeks to understand real needs and turn computational intelligence into practical tools. Its development is guided by simplicity, purposeful innovation, and a constant pursuit of quality.",
+          card_eco_title: "Evolving Ecosystem",
+          card_eco_desc: "Sazam is strengthening the foundations of a digital product ecosystem, where every solution must have a purpose to exist and a clear benefit for those who use it.",
+          tag_principles: "Principles",
+          val_title: "What guides every product.",
+          val1_h: "Real Utility",
+          val1_p: "Every solution must start from an identifiable need and offer concrete benefits. Technology is a means to generate value, not an end in itself.",
+          val2_h: "Simplicity",
+          val2_p: "Transforming technological complexity into clear, intuitive, and practical experiences.",
+          val3_h: "Purposeful Innovation",
+          val3_p: "Utilizing new ideas and technologies to solve problems and create relevant possibilities.",
+          val4_h: "Quality & Continuous Evolution",
+          val4_p: "Enhancing functionality, user experience, and reliability through testing, learning, and feedback.",
+          val5_h: "Accessibility",
+          val5_p: "Reducing usage barriers and making products understandable for different user profiles.",
+          val6_h: "Responsibility & Trust",
+          val6_p: "Treating privacy, security, data protection, and transparency with absolute seriousness.",
+          val7_h: "Consistency",
+          val7_p: "Maintaining alignment between Sazam's declared purpose, its decisions, and what its products effectively deliver.",
+          tag_products: "Products",
+          prod_title: "One ecosystem. Diverse possibilities.",
+          prod_intro: "Sazam develops its own digital products, guided by real needs and the purpose of making technology more useful in daily life.",
+          workspace_desc: "A digital space tailored for productivity and organization, featuring artificial intelligence tools that assist in writing and document creation. Designed to streamline tasks and help users organize information and work more efficiently.",
+          ai_desc: "A product within the Sazam ecosystem dedicated to artificial intelligence experiences. Explore the vision and available features on the platform.",
+          maps_desc: "An interactive digital mapping and navigation experience designed to simplify spatial exploration and location organization across the ecosystem.",
+          btn_discover: "Discover",
+          footer_tagline: "Technology with purpose. Products with utility.",
+          footer_title_eco: "Ecosystem",
+          footer_title_inst: "Institutional",
+          link_story: "Story",
+          link_values: "Values",
+          link_products: "Products",
+          footer_rights: "All rights reserved.",
+          footer_sub: "Sazam — Digital Ecosystem"
+        },
+        pt: {
+          nav_workspace: "Conheça o Workspace",
+          hero_title: "Construindo o futuro da produtividade com IA.",
+          hero_subtitle: "Soluções digitais com utilidade real, inteligência e propósito.",
+          tag_about: "Sobre a Sazam",
+          inst_title: "A tecnologia precisa fazer sentido.",
+          inst_p1: "A Sazam nasceu da vontade de transformar ideias em soluções digitais capazes de fazer diferença na vida das pessoas.",
+          inst_p2: "Surgiu como um projeto independente de tecnologia e vem evoluindo em busca de uma proposta clara: desenvolver produtos próprios que tornem atividades cotidianas mais simples, organizadas e produtivas.",
+          inst_p3: "Mais do que acompanhar tendências, a Sazam busca compreender as necessidades reais e transformar inteligência computacional em ferramentas práticas. Seu desenvolvimento é guiado pela simplicidade, pela inovação com propósito e pela busca constante por qualidade.",
+          card_eco_title: "Ecossistema em Evolução",
+          card_eco_desc: "A Sazam está fortalecendo as bases de um ecossistema de produtos digitais, no qual cada solução deve ter uma razão para existir e um benefício claro para quem a utiliza.",
+          tag_principles: "Princípios",
+          val_title: "O que orienta cada produto.",
+          val1_h: "Utilidade real",
+          val1_p: "Toda solução deve partir de uma necessidade identificável e oferecer benefícios concretos. A tecnologia é um meio para gerar valor, não um fim em si mesma.",
+          val2_h: "Simplicidade",
+          val2_p: "Transformar complexidade tecnológica em experiências claras, intuitivas e práticas.",
+          val3_h: "Inovação com propósito",
+          val3_p: "Utilizar novas ideias e tecnologias para resolver problemas e criar possibilidades relevantes.",
+          val4_h: "Qualidade e evolução contínua",
+          val4_p: "Aprimorar funcionalidade, experiência do usuário e confiabilidade por meio de testes, aprendizado e feedback.",
+          val5_h: "Acessibilidade",
+          val5_p: "Reduzir barreiras de uso e tornar os produtos compreensíveis para diferentes perfis de usuários.",
+          val6_h: "Responsabilidade e confiança",
+          val6_p: "Tratar privacidade, segurança, proteção de dados e transparência com seriedade.",
+          val7_h: "Coerência",
+          val7_p: "Manter consistência entre o propósito declarado pela Sazam, suas decisões e aquilo que seus produtos efetivamente entregam.",
+          tag_products: "Produtos",
+          prod_title: "Um ecossistema. Diferentes possibilidades.",
+          prod_intro: "A Sazam desenvolve produtos digitais próprios, orientados por necessidades reais e pelo propósito de tornar a tecnologia mais útil no dia a dia.",
+          workspace_desc: "Um espaço digital voltado à produtividade e à organização, com recursos de inteligência artificial que auxiliam em atividades como a escrita e a elaboração de documentos. Desenvolvido para tornar tarefas mais práticas e ajudar os usuários a organizar informações e trabalhar com mais eficiência.",
+          ai_desc: "Um produto do ecossistema Sazam dedicado a experiências com inteligência artificial. Conheça a proposta e os recursos disponíveis na plataforma.",
+          maps_desc: "Uma experiência digital interativa de mapas e navegação desenvolvida para simplificar a exploração espacial e a organização geográfica de locais no ecossistema.",
+          btn_discover: "Conhecer",
+          footer_tagline: "Tecnologia com propósito. Produtos com utilidade.",
+          footer_title_eco: "Ecossistema",
+          footer_title_inst: "Institucional",
+          link_story: "História",
+          link_values: "Valores",
+          link_products: "Produtos",
+          footer_rights: "Todos os direitos reservados.",
+          footer_sub: "Sazam — Ecossistema Digital"
+        },
+        es: {
+          nav_workspace: "Explorar Workspace",
+          hero_title: "Construyendo el futuro de la productividad con IA.",
+          hero_subtitle: "Soluciones digitales con utilidad real, inteligencia y propósito.",
+          tag_about: "Sobre Sazam",
+          inst_title: "La tecnología debe tener sentido.",
+          inst_p1: "Sazam nació del deses de transformar ideas en soluciones digitales capaces de marcar una diferença real en la vida de las personas.",
+          inst_p2: "Surgió como un proyecto de tecnología independiente y ha evolucionado con uma misión clara: desarrollar produtos próprios que hagan las atividades cotidianas más simples, organizadas y productivas.",
+          inst_p3: "Más que seguir tendencias, Sazam busca comprender las necessidades reales y transformar la inteligencia computacional en ferramentas práticas. Su desarrollo está guiado por la simplicidad, la innovación con propósito y la búsqueda constante de la calidad.",
+          card_eco_title: "Ecosistema en Evolución",
+          card_eco_desc: "Sazam está fortaleciendo las bases de un ecosistema de produtos digitales, donde cada solución debe tener uma razón de existir y un beneficio claro para quienes la utilizan.",
+          tag_principles: "Principios",
+          val_title: "Lo que guía cada produto.",
+          val1_h: "Utilidad Real",
+          val1_p: "Cada solución debe partir de una necessidade identificable y ofrecer beneficios concretos. La tecnología es un médio para generar valor, no un fin em sí misma.",
+          val2_h: "Simplicidad",
+          val2_p: "Transformar la complejidad tecnológica en experiências claras, intuitivas y práticas.",
+          val3_h: "Innovación con Propósito",
+          val3_p: "Utilizar nuevas ideas y tecnologías para resolver problemas y crear posibilidades relevantes.",
+          val4_h: "Calidad y Evolución Continua",
+          val4_p: "Mejorar la funcionalidad, la experiência del usuario y la confiabilidad mediante pruebas, aprendizaje y retroalimentación.",
+          val5_h: "Accesibilidad",
+          val5_p: "Reducir las barreras de uso y hacer que los produtos sean comprensibles para diferentes perfiles de usuarios.",
+          val6_h: "Responsabilidad y Confianza",
+          val6_p: "Tratar la privacidad, la seguridad, la protección de datos y la transparência con absoluta seriedad.",
+          val7_h: "Coherencia",
+          val7_p: "Mantener la alineación entre el propósito declarado por Sazam, sus decisiones y lo que sus produtos efectivamente entregan.",
+          tag_products: "Productos",
+          prod_title: "Un ecosistema. Diversas posibilidades.",
+          prod_intro: "Sazam desarrolla sus próprios produtos digitales, guiados por necessidades reales y el propósito de hacer que la tecnología sea más útil en la vida diária.",
+          workspace_desc: "Un espacio digital diseñado para la productividad y la organización, con ferramentas de inteligencia artificial que ayudan en la escritura y creación de documentos. Diseñado para simplificar tarefas y ayudar a organizar información.",
+          ai_desc: "Un produto del ecosistema Sazam dedicado a experiências de inteligencia artificial. Explore la visión y las funciones disponibles en la plataforma.",
+          maps_desc: "Una experiência digital interactiva de mapas y navegación diseñada para simplificar la exploración espacial y la organización geográfica en el ecosistema.",
+          btn_discover: "Conocer",
+          footer_tagline: "Tecnología con propósito. Productos con utilidad.",
+          footer_title_eco: "Ecosistema",
+          footer_title_inst: "Institucional",
+          link_story: "Historia",
+          link_values: "Valores",
+          link_products: "Productos",
+          footer_rights: "Todos los derechos reservados.",
+          footer_sub: "Sazam — Ecosistema Digital"
+        }
+      };
+
+      const langSelect = document.getElementById('langSelect');
+
+      function changeLanguage(lang) {
+        document.documentElement.lang = lang;
+        const dict = translations[lang];
+
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+          const key = element.getAttribute('data-i18n');
+          if (dict[key]) {
+            element.textContent = dict[key];
+          }
+        });
+      }
+
+      langSelect.addEventListener('change', (e) => {
+        changeLanguage(e.target.value);
+      });
+
+      // 3. Product Toggle Logic
       const iconWorkspace = document.getElementById('iconWorkspace');
       const iconAI = document.getElementById('iconAI');
+      const iconMaps = document.getElementById('iconMaps');
+      
       const panelWorkspace = document.getElementById('panelWorkspace');
       const panelAI = document.getElementById('panelAI');
+      const panelMaps = document.getElementById('panelMaps');
+      
       const closeBtns = document.querySelectorAll('.close-panel-btn');
 
       function showPanel(panelToShow, iconToActivate) {
         panelWorkspace.classList.remove('active');
         panelAI.classList.remove('active');
+        panelMaps.classList.remove('active');
+
         iconWorkspace.classList.remove('active');
         iconAI.classList.remove('active');
+        iconMaps.classList.remove('active');
 
-        if (panelToShow) {
+        if (panelToShow && iconToActivate) {
           panelToShow.classList.add('active');
           iconToActivate.classList.add('active');
         }
@@ -900,11 +1165,38 @@
         }
       });
 
+      iconMaps.addEventListener('click', () => {
+        if (panelMaps.classList.contains('active')) {
+          showPanel(null, null);
+        } else {
+          showPanel(panelMaps, iconMaps);
+        }
+      });
+
       closeBtns.forEach(btn => {
         btn.addEventListener('click', () => showPanel(null, null));
       });
 
-      // 3. Physics & Shapes Logic for Hero Section
+      // 4. Scroll Reveal Animation Logic
+      const observerOptions = {
+        root: null,
+        threshold: 0.15
+      };
+
+      const scrollObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal-on-scroll').forEach(element => {
+        scrollObserver.observe(element);
+      });
+
+      // 5. Physics & Shapes Logic for Hero Section
       const canvas = document.getElementById('heroCanvas');
       const shapes = [
         { el: document.getElementById('shape1'), w: 130, h: 130, x: 0, y: -200, vx: 0, vy: 0, targetX: 0, targetY: 0 },
@@ -923,14 +1215,12 @@
         const cWidth = canvas.clientWidth;
         const groundY = canvas.clientHeight - 40;
 
-        // Ground layout coordinates
         shapes[0].targetX = cWidth * 0.15;
         shapes[0].targetY = groundY - shapes[0].h;
 
         shapes[1].targetX = cWidth * 0.32;
         shapes[1].targetY = groundY - shapes[1].h;
 
-        // Stacked shape over shape 2
         shapes[2].targetX = cWidth * 0.33;
         shapes[2].targetY = groundY - shapes[1].h - shapes[2].h;
 
@@ -961,13 +1251,9 @@
 
       layoutInitialPositions();
 
-      // Smooth Animation Loop
       function animate() {
-        const groundY = canvas.clientHeight - 40;
-
         shapes.forEach((s) => {
           if (s !== activeShape) {
-            // Smooth lerp return to ground/target
             s.x += (s.targetX - s.x) * 0.1;
             s.y += (s.targetY - s.y) * 0.1;
 
@@ -981,7 +1267,6 @@
 
       requestAnimationFrame(animate);
 
-      // Drag and Drop Event Handlers
       shapes.forEach((s) => {
         const startDrag = (e) => {
           isDragging = true;
@@ -1010,7 +1295,6 @@
         let newX = (clientX - rect.left) - dragOffsetX;
         let newY = (clientY - rect.top) - dragOffsetY;
 
-        // Boundaries
         newX = Math.max(0, Math.min(canvas.clientWidth - activeShape.w, newX));
         newY = Math.max(0, Math.min(canvas.clientHeight - activeShape.h, newY));
 
@@ -1023,7 +1307,6 @@
       const onEnd = () => {
         if (activeShape) {
           activeShape.el.classList.remove('dragging');
-          // Update default target position to release point so shape drops naturally near release
           activeShape.targetX = activeShape.x;
           activeShape.targetY = canvas.clientHeight - 40 - activeShape.h;
           activeShape = null;
